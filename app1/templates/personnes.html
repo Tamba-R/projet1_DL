@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des personnes</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .action-buttons a {
+            padding: 6px 12px;
+            text-decoration: none;
+            color: white;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .btn-detail {
+            background-color: #2ecc71;
+        }
+        .btn-modif {
+            background-color: #f39c12;
+        }
+    </style>
+</head>
+<body>
+
+    
+    <h2 style="text-align:center;">Ajouter une nouvelle personne</h2>
+
+<form method="post" style="width: 60%; margin: auto;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn-submit">Ajouter</button>
+</form>
+<h1>Liste des personnes</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Âge</th>
+                <th>Genre</th>
+                <th>Adresse</th>
+                <th>Action</th> <!-- Nouvelle colonne -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in personnes %}
+                <tr>
+                    <td>{{ p.nom }}</td>
+                    <td>{{ p.prenom }}</td>
+                    <td>{{ p.age }}</td>
+                    <td>{{ p.genre }}</td>
+                    <td>{{ p.adresse }}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <!-- Lien dynamique vers la page de détails -->
+                            <a href="{% url 'detail_personne' p.id %}" class="btn-detail">Afficher</a>
+
+                            <!-- Lien dynamique vers la page de modification -->
+                            <a href="{% url 'modifier_personne' p.id %}" class="btn-modif">Modifier</a>
+                        </div>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="6">Aucune personne trouvée.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

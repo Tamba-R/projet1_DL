@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier la personne</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .form-container {
+            width: 50%;
+            margin: 60px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .form-container h1 {
+            text-align: center;
+            color: #e67e22;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .btn-submit {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            font-size: 1em;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-submit:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Modifier {{ personne.prenom }} {{ personne.nom }}</h1>
+
+        <!-- Formulaire à venir -->
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Nom</label>
+                <input type="text" name="nom" value="{{ personne.nom }}">
+            </div>
+
+            <div class="form-group">
+                <label>Prénom</label>
+                <input type="text" name="prenom" value="{{ personne.prenom }}">
+            </div>
+
+            <div class="form-group">
+                <label>Âge</label>
+                <input type="number" name="age" value="{{ personne.age }}">
+            </div>
+
+            <div class="form-group">
+                <label>Genre</label>
+                <input type="text" name="genre" value="{{ personne.genre }}">
+            </div>
+
+            <div class="form-group">
+                <label>Adresse</label>
+                <input type="text" name="adresse" value="{{ personne.adresse }}">
+            </div>
+
+            <button type="submit" class="btn-submit">Enregistrer</button>
+            <div class="btn-retour">
+                <a href="{% url 'liste_personnes' %}">← Retour à la liste</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
